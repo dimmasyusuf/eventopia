@@ -18,7 +18,6 @@ import DateTimeComponent from './DateTimeComponent';
 function EventCard() {
   const { events } = useSelector((state) => state.events);
   const dispatch = useDispatch();
-  console.log(events);
 
   useEffect(() => {
     dispatch(getEvents());
