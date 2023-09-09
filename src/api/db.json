@@ -1,9 +1,10 @@
 {
   "users": [
     {
-      "name": "Admin",
+      "name": "admin",
       "email": "admin@mail.com",
       "password": "123123",
+      "onAuth": false,
       "id": 1
     }
   ],

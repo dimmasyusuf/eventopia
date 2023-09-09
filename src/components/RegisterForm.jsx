@@ -56,6 +56,7 @@ function RegisterForm() {
       name: '',
       email: '',
       password: '',
+      onAuth: false,
     },
     onSubmit: handleSubmit,
     validationSchema: RegisterSchema,
