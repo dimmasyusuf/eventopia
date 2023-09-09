@@ -4,15 +4,7 @@
       "name": "admin",
       "email": "admin@mail.com",
       "password": "123123",
-      "onAuth": false,
       "id": 1
-    },
-    {
-      "name": "Dimas",
-      "email": "dimasyusufqurohman@gmail.com",
-      "password": "dimas123",
-      "onAuth": false,
-      "id": 2
     }
   ],
   "events": [
