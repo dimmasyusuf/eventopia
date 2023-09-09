@@ -1,8 +1,8 @@
 {
   "users": [
     {
-      "name": "Dimas",
-      "email": "dimas@gmail.com",
+      "name": "Admin",
+      "email": "admin@mail.com",
       "password": "123123",
       "id": 1
     }
