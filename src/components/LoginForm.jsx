@@ -35,6 +35,7 @@ function LoginForm() {
         userFound = true;
         if (user.password === formik.values.password) {
           setLoadingState(false);
+          localStorage.setItem('onAuth', true);
           navigate('/');
         } else {
           setLoadingState(false);
@@ -60,6 +61,7 @@ function LoginForm() {
     initialValues: {
       email: '',
       password: '',
+      onAuth: true,
     },
     onSubmit: loginUser,
     validationSchema: LoginSchema,
