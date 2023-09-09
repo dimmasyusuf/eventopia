@@ -10,17 +10,9 @@ function EventList() {
       <SimpleGrid
         bg='gray.50'
         minChildWidth='300px'
-        alignItems='center'
         justify='center'
         wrap='wrap'
       >
-        <EventCard />
-        <EventCard />
-        <EventCard />
-        <EventCard />
-        <EventCard />
-        <EventCard />
-        <EventCard />
         <EventCard />
       </SimpleGrid>
     </Stack>
