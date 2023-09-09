@@ -40,7 +40,7 @@ function Navbar() {
           <Input
             type='text'
             placeholder='Search event'
-            focusBorderColor='yellow.300'
+            focusBorderColor='orange.500'
           />
         </InputGroup>
         <Flex gap='2'>
