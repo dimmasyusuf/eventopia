@@ -1,0 +1,60 @@
+import {
+  Box,
+  Card,
+  CardBody,
+  HStack,
+  Heading,
+  Icon,
+  Image,
+  Stack,
+  Text,
+} from '@chakra-ui/react';
+import { useEffect } from 'react';
+import { FaDollarSign } from 'react-icons/fa6';
+import { useDispatch, useSelector } from 'react-redux';
+import { getEvents } from '../app/features/eventSlice';
+import DateTimeComponent from './DateTimeComponent';
+
+function EventCard() {
+  const { events } = useSelector((state) => state.events);
+  const dispatch = useDispatch();
+  console.log(events);
+
+  useEffect(() => {
+    dispatch(getEvents());
+  }, [dispatch]);
+
+  return events.length > 0 ? (
+    events.map((event) => (
+      <Box p='4' w='100%' key={event.id}>
+        <Card maxW='100%' shadow='sm' _hover={{ shadow: 'lg' }}>
+          <Image src={event.image} alt={event.name} w='100%' />
+          <CardBody>
+            <Stack>
+              <Heading as='h3' size='md' noOfLines='2' color='gray.700'>
+                {event.name}
+              </Heading>
+              <DateTimeComponent date={event.date} time={event.time} />
+              <Text color='gray'>{event.location}</Text>
+              {event.type === 'Free' ? (
+                <Text color='gray'>Free</Text>
+              ) : (
+                <HStack color='gray' spacing='1' mb='2'>
+                  <Icon as={FaDollarSign} />
+                  <Text>{event.price}</Text>
+                </HStack>
+              )}
+              <Text as='b' color='gray.700'>
+                {event.author}
+              </Text>
+            </Stack>
+          </CardBody>
+        </Card>
+      </Box>
+    ))
+  ) : (
+    <Text>Loading...</Text>
+  );
+}
+
+export default EventCard;
