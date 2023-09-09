@@ -17,7 +17,7 @@ function DateTimeComponent({ date, time }) {
   };
 
   return (
-    <Text fontWeight='semibold' color='orange.400'>
+    <Text fontWeight='semibold' color='orange.500'>
       {dateFormat(dateTime)}
     </Text>
   );
