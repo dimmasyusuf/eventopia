@@ -3,13 +3,13 @@ import EventCard from './EventCard';
 
 function EventList() {
   return (
-    <Stack px={{ sm: 2, lg: 12 }} mt='6'>
+    <Stack px={{ base: 2, lg: 12 }} mt='6'>
       <Heading as='h2' size='lg' color='gray.700' px='4'>
         Events
       </Heading>
       <SimpleGrid
         bg='gray.50'
-        columns={{ sm: 1, md: 2, lg: 4 }}
+        minChildWidth='300px'
         alignItems='center'
         justify='center'
         wrap='wrap'
