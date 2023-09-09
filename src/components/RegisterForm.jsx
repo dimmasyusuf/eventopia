@@ -14,22 +14,18 @@ import {
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { registerUser } from '../app/features/registerSlice';
 
 function RegisterForm() {
   const [loadingState, setLoadingState] = useState(false);
   const toast = useToast();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const registerUser = () => {
+  const handleSubmit = () => {
     setLoadingState(true);
-
-    fetch('http://localhost:5000/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formik.values),
-    })
+    dispatch(registerUser(formik.values))
       .then((res) => {
         console.log(res);
         navigate('/login');
@@ -61,7 +57,7 @@ function RegisterForm() {
       email: '',
       password: '',
     },
-    onSubmit: registerUser,
+    onSubmit: handleSubmit,
     validationSchema: RegisterSchema,
   });
 
@@ -93,6 +89,7 @@ function RegisterForm() {
             py='6'
             onChange={handleForm}
             name='name'
+            focusBorderColor='orange.500'
           />
           <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
         </FormControl>
@@ -107,6 +104,7 @@ function RegisterForm() {
             py='6'
             onChange={handleForm}
             name='email'
+            focusBorderColor='orange.500'
           />
           <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
         </FormControl>
@@ -121,6 +119,7 @@ function RegisterForm() {
             py='6'
             onChange={handleForm}
             name='password'
+            focusBorderColor='orange.500'
           />
           <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
         </FormControl>
