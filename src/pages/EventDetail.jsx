@@ -16,22 +16,28 @@ import { CalendarIcon, AddIcon, MinusIcon } from '@chakra-ui/icons';
 import { FaLocationDot, FaDollarSign } from 'react-icons/fa6';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getEvents } from '../app/features/eventSlice';
+import { getEventById } from '../app/features/eventSlice';
+import { useParams } from 'react-router-dom';
 
-function Event() {
-  const { events } = useSelector((state) => state.events);
-  const { image, name, description, date, location, type, price } = events;
+function EventDetail() {
+  const { id } = useParams();
   const dispatch = useDispatch();
+  const { event } = useSelector((state) => state.events);
 
   useEffect(() => {
-    dispatch(getEvents());
-  }, [dispatch]);
+    dispatch(getEventById(id));
+  }, [dispatch, id]);
 
   return (
     <>
       <Navbar />
       <Stack mx={{ base: '6', sm: '6', md: '16', lg: '20' }} mt='8'>
-        <Image boxSize='100%' backgroundSize='cover' src={image} alt={name} />
+        <Image
+          boxSize='100%'
+          backgroundSize='cover'
+          src={event.image}
+          alt={event.name}
+        />
         <HStack
           mt='8'
           spacing='6'
@@ -42,12 +48,12 @@ function Event() {
           <Stack w={{ sm: '100%', lg: '60%' }} mb='6'>
             <VStack spacing='4' alignItems='left'>
               <Text as='b' fontSize='xl'>
-                {date}
+                {event.date}
               </Text>
               <Heading as='h3' size={{ base: '2xl', sm: '3xl' }} mb='2'>
-                {name}
+                {event.name}
               </Heading>
-              <Text mb='2'>{description}</Text>
+              <Text mb='2'>{event.description}</Text>
               <Stack mb='2'>
                 <Heading as='h4' fontSize='2xl' mb='2'>
                   Date and time
@@ -56,7 +62,7 @@ function Event() {
                   <Center w='24px' h='24px'>
                     <CalendarIcon />
                   </Center>
-                  <Text as='b'>{date}</Text>
+                  <Text as='b'>{event.date}</Text>
                 </HStack>
               </Stack>
               <Stack>
@@ -68,7 +74,7 @@ function Event() {
                     <Icon as={FaLocationDot} />
                   </Center>
                   <VStack alignItems='left' pr='12'>
-                    <Text as='b'>{location}</Text>
+                    <Text as='b'>{event.location}</Text>
                     <Text color='gray.500'>
                       Kav 18 - 20 Jalan Jenderal Sudirman Kecamatan Tanah Abang,
                       Daerah Khusus Ibukota Jakarta 10220
@@ -91,14 +97,14 @@ function Event() {
               >
                 <VStack alignItems='left'>
                   <Text as='b' noOfLines='2'>
-                    {name}
+                    {event.name}
                   </Text>
-                  {type === 'Free' ? (
+                  {event.type === 'Free' ? (
                     <Text>Free</Text>
                   ) : (
                     <HStack color='gray' spacing='1' mb='2'>
                       <Icon as={FaDollarSign} />
-                      <Text>{price}</Text>
+                      <Text>{event.price}</Text>
                     </HStack>
                   )}
                 </VStack>
@@ -127,4 +133,4 @@ function Event() {
   );
 }
 
-export default Event;
+export default EventDetail;
