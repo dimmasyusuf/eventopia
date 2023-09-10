@@ -5,6 +5,7 @@ import {
   DrawerOverlay,
   DrawerBody,
   Flex,
+  Heading,
   Icon,
   IconButton,
   Input,
@@ -15,7 +16,6 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  Text,
   useDisclosure,
   DrawerHeader,
   DrawerFooter,
@@ -38,12 +38,19 @@ function Navbar() {
 
   return (
     <Flex py='4' px='6' justifyContent='space-between'>
-      <Text as='b' fontSize='2xl' mr='2' cursor='pointer'>
+      <Heading
+        as={RouterLink}
+        fontWeight='bold'
+        fontSize='2xl'
+        mr='2'
+        cursor='pointer'
+        to='/'
+      >
         Eventopia
-      </Text>
+      </Heading>
       <Flex
-        ml='24'
-        w='100%'
+        ml={{ md: '16', lg: '24' }}
+        width='100%'
         justifyContent='space-between'
         alignItems='center'
         display={{ base: 'none', sm: 'none', md: 'flex' }}
