@@ -163,6 +163,7 @@ function Navbar() {
                   />
                 </InputGroup>
                 <Link
+                  as={RouterLink}
                   to='/create'
                   colorScheme='white'
                   color='black'
@@ -171,6 +172,7 @@ function Navbar() {
                   Create an event
                 </Link>
                 <Link
+                  as={RouterLink}
                   to='/dashboard'
                   colorScheme='white'
                   color='black'
