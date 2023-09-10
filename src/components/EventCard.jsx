@@ -14,6 +14,7 @@ import { FaDollarSign } from 'react-icons/fa6';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEvents } from '../app/features/eventSlice';
 import DateTimeComponent from './DateTimeComponent';
+import { Link as RouterLink } from 'react-router-dom';
 
 function EventCard() {
   const { events } = useSelector((state) => state.events);
@@ -26,7 +27,13 @@ function EventCard() {
   return events.length > 0 ? (
     events.map((event) => (
       <Box p='4' w='100%' key={event.id}>
-        <Card maxW='100%' shadow='sm' _hover={{ shadow: 'lg' }}>
+        <Card
+          as={RouterLink}
+          to={`/event/${event.id}`}
+          maxW='100%'
+          shadow='sm'
+          _hover={{ shadow: 'lg' }}
+        >
           <Image src={event.image} alt={event.name} w='100%' />
           <CardBody>
             <Stack>

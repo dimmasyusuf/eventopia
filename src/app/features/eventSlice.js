@@ -6,10 +6,19 @@ export const getEvents = createAsyncThunk('events/getEvents', async () => {
   return response.data;
 });
 
+export const getEventById = createAsyncThunk(
+  'events/getEventById',
+  async (id) => {
+    const response = await axios.get(`http://localhost:2000/events/${id}`);
+    return response.data;
+  }
+);
+
 const eventSlice = createSlice({
   name: 'events',
   initialState: {
     events: [],
+    event: {},
     loading: false,
   },
   extraReducers: (builder) => {
@@ -24,6 +33,17 @@ const eventSlice = createSlice({
       .addCase(getEvents.rejected, (state) => {
         state.loading = false;
         state.events = [];
+      })
+      .addCase(getEventById.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getEventById.fulfilled, (state, action) => {
+        state.event = action.payload;
+        state.loading = false;
+      })
+      .addCase(getEventById.rejected, (state) => {
+        state.loading = false;
+        state.event = null;
       });
   },
 });
