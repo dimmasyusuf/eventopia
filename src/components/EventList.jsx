@@ -7,12 +7,7 @@ function EventList() {
       <Heading as='h2' size='lg' color='gray.700' px='4'>
         Events
       </Heading>
-      <SimpleGrid
-        bg='gray.50'
-        minChildWidth='300px'
-        justify='center'
-        wrap='wrap'
-      >
+      <SimpleGrid minChildWidth='300px' justify='center' wrap='wrap'>
         <EventCard />
       </SimpleGrid>
     </Stack>
