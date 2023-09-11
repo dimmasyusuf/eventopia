@@ -25,6 +25,7 @@ import { ChevronDownIcon, HamburgerIcon, SearchIcon } from '@chakra-ui/icons';
 import { Link as RouterLink } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
+import CartNavbar from './CartNavbar';
 
 function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -38,6 +39,12 @@ function Navbar() {
 
   return (
     <Flex py='4' px='6' justifyContent='space-between'>
+      <IconButton
+        aria-label='Menu'
+        icon={<HamburgerIcon />}
+        display={{ sm: 'flex', md: 'none' }}
+        onClick={onOpen}
+      />
       <Heading
         as={RouterLink}
         fontWeight='bold'
@@ -77,6 +84,7 @@ function Navbar() {
               >
                 Create an event
               </Button>
+              <CartNavbar />
               <Menu>
                 <MenuButton
                   as={Button}
@@ -138,13 +146,7 @@ function Navbar() {
           </Flex>
         )}
       </Flex>
-      <IconButton
-        aria-label='Menu'
-        icon={<HamburgerIcon />}
-        display={{ sm: 'flex', md: 'none' }}
-        onClick={onOpen}
-      />
-      <Drawer isOpen={isOpen} placement='right' onClose={onClose}>
+      <Drawer isOpen={isOpen} placement='left' onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
