@@ -33,7 +33,7 @@ function NavbarMenu() {
       alignItems='center'
       display={{ base: 'none', sm: 'none', md: 'flex' }}
     >
-      <InputGroup w='60%'>
+      <InputGroup w='60%' mr='6'>
         <InputLeftElement>
           <SearchIcon />
         </InputLeftElement>
