@@ -14,15 +14,28 @@ import {
 import Navbar from '../components/Navbar';
 import { CalendarIcon, AddIcon, MinusIcon } from '@chakra-ui/icons';
 import { FaLocationDot, FaDollarSign } from 'react-icons/fa6';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEventById } from '../app/features/eventSlice';
 import { useParams } from 'react-router-dom';
+import { format, isValid, parseISO } from 'date-fns';
 
 function EventDetail() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { event } = useSelector((state) => state.events);
+  const [formattedDate, setFormattedDate] = useState('');
+
+  useEffect(() => {
+    if (event.date) {
+      const parsedDate = parseISO(event.date);
+      if (isValid(parsedDate)) {
+        setFormattedDate(format(parsedDate, 'EEEE, MMMM d'));
+      } else {
+        setFormattedDate('Invalid Date');
+      }
+    }
+  }, [event.date]);
 
   useEffect(() => {
     dispatch(getEventById(id));
@@ -48,7 +61,7 @@ function EventDetail() {
           <Stack w={{ sm: '100%', lg: '60%' }} mb='6'>
             <VStack spacing='4' alignItems='left'>
               <Text as='b' fontSize='xl'>
-                {event.date}
+                {formattedDate}
               </Text>
               <Heading as='h3' size={{ base: '2xl', sm: '3xl' }} mb='2'>
                 {event.name}
@@ -62,7 +75,9 @@ function EventDetail() {
                   <Center w='24px' h='24px'>
                     <CalendarIcon />
                   </Center>
-                  <Text as='b'>{event.date}</Text>
+                  <Text as='b'>
+                    {formattedDate} · {event.time}
+                  </Text>
                 </HStack>
               </Stack>
               <Stack>
@@ -73,13 +88,7 @@ function EventDetail() {
                   <Center w='24px' h='24px'>
                     <Icon as={FaLocationDot} />
                   </Center>
-                  <VStack alignItems='left' pr='12'>
-                    <Text as='b'>{event.location}</Text>
-                    <Text color='gray.500'>
-                      Kav 18 - 20 Jalan Jenderal Sudirman Kecamatan Tanah Abang,
-                      Daerah Khusus Ibukota Jakarta 10220
-                    </Text>
-                  </VStack>
+                  <Text as='b'>{event.location}</Text>
                 </HStack>
               </Stack>
             </VStack>
