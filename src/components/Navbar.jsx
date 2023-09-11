@@ -1,242 +1,25 @@
-import {
-  Drawer,
-  DrawerContent,
-  DrawerCloseButton,
-  DrawerOverlay,
-  DrawerBody,
-  Flex,
-  Heading,
-  Icon,
-  IconButton,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Link,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  useDisclosure,
-  DrawerHeader,
-  DrawerFooter,
-  Button,
-} from '@chakra-ui/react';
-import { ChevronDownIcon, HamburgerIcon, SearchIcon } from '@chakra-ui/icons';
+import { Flex, Heading, useBreakpointValue } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
-import { FaUser } from 'react-icons/fa6';
-import { useNavigate } from 'react-router-dom';
-import CartNavbar from './CartNavbar';
+import NavbarCart from './NavbarCart';
+import NavbarMenu from './NavbarMenu';
+import NavbarMenuMobile from './NavbarMenuMobile';
 
 function Navbar() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const isAuthenticated = JSON.parse(localStorage.getItem('onAuth'));
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.removeItem('onAuth');
-    navigate('/login');
-  };
+  const isSmallScreen = useBreakpointValue({ base: true, md: false });
 
   return (
     <Flex py='4' px='6' justifyContent='space-between'>
-      <IconButton
-        aria-label='Menu'
-        icon={<HamburgerIcon />}
-        display={{ sm: 'flex', md: 'none' }}
-        onClick={onOpen}
-      />
+      <NavbarMenuMobile />
       <Heading
         as={RouterLink}
         fontWeight='bold'
         fontSize='2xl'
-        mr='2'
         cursor='pointer'
         to='/'
       >
         Eventopia
       </Heading>
-      <Flex
-        ml={{ md: '16', lg: '24' }}
-        width='100%'
-        justifyContent='space-between'
-        alignItems='center'
-        display={{ base: 'none', sm: 'none', md: 'flex' }}
-      >
-        <InputGroup w='60%'>
-          <InputLeftElement>
-            <SearchIcon />
-          </InputLeftElement>
-          <Input
-            type='text'
-            placeholder='Search event'
-            focusBorderColor='orange.500'
-          />
-        </InputGroup>
-        {isAuthenticated === true ? (
-          <>
-            <Flex gap='2' alignItems='center'>
-              <Button
-                as={RouterLink}
-                to='/create'
-                colorScheme='white'
-                color='black'
-                _hover={{ background: 'gray.50' }}
-              >
-                Create an event
-              </Button>
-              <CartNavbar />
-              <Menu>
-                <MenuButton
-                  as={Button}
-                  rightIcon={<ChevronDownIcon />}
-                  aria-label='User Profile'
-                  colorScheme='white'
-                  color='black'
-                  _hover={{ background: 'gray.50' }}
-                >
-                  <Icon as={FaUser} />
-                </MenuButton>
-                <MenuList
-                  colorScheme='white'
-                  mt='2'
-                  borderRadius='none'
-                  border='none'
-                >
-                  <MenuItem
-                    as={RouterLink}
-                    to='/dashboard'
-                    colorScheme='white'
-                    color='black'
-                    _hover={{ background: 'gray.50' }}
-                  >
-                    Dashboard
-                  </MenuItem>
-                  <MenuItem
-                    colorScheme='white'
-                    color='black'
-                    _hover={{ background: 'gray.50' }}
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </MenuItem>
-                </MenuList>
-              </Menu>
-            </Flex>
-          </>
-        ) : (
-          <Flex gap='2'>
-            <Button
-              as={RouterLink}
-              to='/login'
-              colorScheme='white'
-              color='black'
-              _hover={{ background: 'gray.50' }}
-            >
-              Login
-            </Button>
-            <Button
-              as={RouterLink}
-              to='/register'
-              colorScheme='white'
-              color='black'
-              _hover={{ background: 'gray.50' }}
-            >
-              Register
-            </Button>
-          </Flex>
-        )}
-      </Flex>
-      <Drawer isOpen={isOpen} placement='left' onClose={onClose}>
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader>Menu</DrawerHeader>
-          <DrawerBody>
-            {isAuthenticated === true ? (
-              <Flex flexDirection='column' gap='6'>
-                <InputGroup w='100%'>
-                  <InputLeftElement>
-                    <SearchIcon />
-                  </InputLeftElement>
-                  <Input
-                    type='text'
-                    placeholder='Search event'
-                    focusBorderColor='yellow.300'
-                  />
-                </InputGroup>
-                <Link
-                  as={RouterLink}
-                  to='/create'
-                  colorScheme='white'
-                  color='black'
-                  _hover={{ background: 'gray.50' }}
-                >
-                  Create an event
-                </Link>
-                <Link
-                  as={RouterLink}
-                  to='/dashboard'
-                  colorScheme='white'
-                  color='black'
-                  _hover={{ background: 'gray.50' }}
-                >
-                  Dashboard
-                </Link>
-              </Flex>
-            ) : (
-              <InputGroup w='100%'>
-                <InputLeftElement>
-                  <SearchIcon />
-                </InputLeftElement>
-                <Input
-                  type='text'
-                  placeholder='Search event'
-                  focusBorderColor='yellow.300'
-                />
-              </InputGroup>
-            )}
-          </DrawerBody>
-          {isAuthenticated === true ? (
-            <DrawerFooter>
-              <Flex justifyContent='right' w='100%'>
-                <Button
-                  as={RouterLink}
-                  to='/register'
-                  colorScheme='white'
-                  color='black'
-                  _hover={{ background: 'gray.50' }}
-                  onClick={handleLogout}
-                >
-                  Logout
-                </Button>
-              </Flex>
-            </DrawerFooter>
-          ) : (
-            <DrawerFooter>
-              <Flex justifyContent='space-between' gap='4' w='100%'>
-                <Button
-                  as={RouterLink}
-                  to='/register'
-                  colorScheme='white'
-                  color='black'
-                  _hover={{ background: 'gray.50' }}
-                >
-                  Register
-                </Button>
-                <Button
-                  as={RouterLink}
-                  to='/login'
-                  colorScheme='white'
-                  color='black'
-                  _hover={{ background: 'gray.50' }}
-                >
-                  Login
-                </Button>
-              </Flex>
-            </DrawerFooter>
-          )}
-        </DrawerContent>
-      </Drawer>
+      {isSmallScreen ? <NavbarCart /> : <NavbarMenu />}
     </Flex>
   );
 }

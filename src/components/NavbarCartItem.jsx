@@ -10,7 +10,7 @@ import {
 import { AddIcon, DeleteIcon, MinusIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 
-function CartItem() {
+function NavbarCartItem() {
   const [count, setCount] = useState(1);
   return (
     <HStack alignItems='flex-start' mb='2' shadow='sm'>
@@ -56,4 +56,4 @@ function CartItem() {
   );
 }
 
-export default CartItem;
+export default NavbarCartItem;

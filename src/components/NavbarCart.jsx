@@ -14,28 +14,29 @@ import {
   HStack,
 } from '@chakra-ui/react';
 import { FaCartShopping } from 'react-icons/fa6';
-import CartItem from './CartItem';
+import NavbarCartItem from './NavbarCartItem';
 
-function CartNavbar() {
+function NavbarCart() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // const isAuthenticated = JSON.parse(localStorage.getItem('onAuth'));
 
   return (
     <>
       <IconButton
-        aria-label='Cart'
+        aria-label='Cart Button'
         icon={<FaCartShopping />}
         onClick={onOpen}
+        bg={{ base: 'gray.100', md: 'white' }}
+        color='black'
+        _hover={{ background: 'gray.200' }}
       />
-
       <Drawer isOpen={isOpen} placement='right' onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader>My Cart</DrawerHeader>
           <DrawerBody>
-            <CartItem />
-            <CartItem />
+            <NavbarCartItem />
+            <NavbarCartItem />
           </DrawerBody>
           <DrawerFooter>
             <VStack width='100%'>
@@ -54,4 +55,4 @@ function CartNavbar() {
   );
 }
 
-export default CartNavbar;
+export default NavbarCart;
