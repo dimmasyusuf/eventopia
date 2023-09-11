@@ -34,7 +34,13 @@ function EventCard() {
           shadow='sm'
           _hover={{ shadow: 'lg' }}
         >
-          <Image src={event.image} alt={event.name} w='100%' />
+          <Image
+            src={event.image}
+            alt={event.name}
+            w='100%'
+            maxH='140px'
+            objectFit='cover'
+          />
           <CardBody>
             <Stack>
               <Heading as='h3' size='md' noOfLines='2' color='gray.700'>
