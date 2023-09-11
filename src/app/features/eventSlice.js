@@ -14,6 +14,11 @@ export const getEventById = createAsyncThunk(
   }
 );
 
+export const postEvent = createAsyncThunk('events/postEvent', async (data) => {
+  const response = await axios.post('http://localhost:2000/events', data);
+  return response.data;
+});
+
 const eventSlice = createSlice({
   name: 'events',
   initialState: {
@@ -44,6 +49,17 @@ const eventSlice = createSlice({
       .addCase(getEventById.rejected, (state) => {
         state.loading = false;
         state.event = null;
+      })
+      .addCase(postEvent.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(postEvent.fulfilled, (state, action) => {
+        state.event = action.payload;
+        state.loading = false;
+      })
+      .addCase(postEvent.rejected, (state) => {
+        state.loading = false;
+        state.event = {};
       });
   },
 });
