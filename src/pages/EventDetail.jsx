@@ -45,12 +45,35 @@ function EventDetail() {
     <>
       <Navbar />
       <Stack mx={{ base: '6', sm: '6', md: '16', lg: '20' }} mt='8'>
-        <Image
-          boxSize='100%'
-          backgroundSize='cover'
-          src={event.image}
-          alt={event.name}
-        />
+        <Box
+          w='100%'
+          maxH='470px'
+          overflow='hidden'
+          justifyContent='center'
+          alignItems='center'
+          display='flex'
+          position='relative'
+        >
+          <Box
+            position='absolute'
+            top='0'
+            left='0'
+            right='0'
+            bottom='0'
+            zIndex='-1'
+            backgroundImage={`url(${event.image})`}
+            backgroundPosition='center'
+            backgroundSize='cover'
+            backgroundRepeat='no-repeat'
+            filter='blur(15px)'
+          />
+          <Image
+            src={event.image}
+            alt={event.name}
+            h='auto'
+            objectFit='cover'
+          />
+        </Box>
         <HStack
           mt='8'
           spacing='6'
