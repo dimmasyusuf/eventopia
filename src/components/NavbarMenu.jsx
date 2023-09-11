@@ -9,7 +9,6 @@ import {
   MenuItem,
   MenuList,
   Button,
-  Link,
 } from '@chakra-ui/react';
 import { ChevronDownIcon, SearchIcon } from '@chakra-ui/icons';
 import { Link as RouterLink } from 'react-router-dom';
@@ -47,18 +46,15 @@ function NavbarMenu() {
       {isAuthenticated === true ? (
         <>
           <Flex gap='2' alignItems='center'>
-            <Link
+            <Button
               as={RouterLink}
               to='/create'
               colorScheme='white'
               color='black'
               _hover={{ background: 'gray.200' }}
-              px='4'
-              py='2'
-              borderRadius='md'
             >
               Create an event
-            </Link>
+            </Button>
             <NavbarCart />
             <Menu>
               <MenuButton
