@@ -36,6 +36,7 @@ function LoginForm() {
         if (user.password === formik.values.password) {
           setLoadingState(false);
           localStorage.setItem('onAuth', true);
+          localStorage.setItem('user', JSON.stringify(user));
           navigate('/');
         } else {
           setLoadingState(false);
