@@ -5,6 +5,12 @@
       "email": "admin@mail.com",
       "password": "123123",
       "id": 1
+    },
+    {
+      "name": "Dimas",
+      "email": "dimas@gmail.com",
+      "password": "dimas123",
+      "id": 2
     }
   ],
   "events": [
