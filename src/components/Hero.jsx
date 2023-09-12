@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 
 function Hero() {
   const queryLength = useSelector((state) => state.events.queryLength);
-  console.log(queryLength);
 
   return queryLength > 0 ? null : (
     <Flex

@@ -10,28 +10,19 @@ import {
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import { FaDollarSign } from 'react-icons/fa6';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { postCart } from '../app/features/cartSlice';
 
 function CartBox() {
   const { event } = useSelector((state) => state.events);
-  const [name, setName] = useState(event.name);
-  const [price, setPrice] = useState(event.price);
-  const [type, setType] = useState(event.type);
   const [quantity, setQuantity] = useState(1);
   const [loadingState, setLoadingState] = useState(false);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    setName(event.name);
-    setPrice(event.price);
-    setType(event.type);
-  }, [event]);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     setLoadingState(true);
-    dispatch(postCart({ name, type, price, quantity }));
+    dispatch(postCart({ ...event, quantity }));
     setTimeout(() => {
       setLoadingState(false);
     }, 1000);
@@ -51,14 +42,14 @@ function CartBox() {
         >
           <VStack alignItems='left'>
             <Text as='b' noOfLines='2' mb='2'>
-              {name}
+              {event.name}
             </Text>
-            {type === 'Free' ? (
-              <Text>{type}</Text>
+            {event.type === 'Free' ? (
+              <Text>{event.type}</Text>
             ) : (
               <HStack color='gray' spacing='1' mb='2'>
                 <Icon as={FaDollarSign} />
-                <Text>{price}</Text>
+                <Text>{event.price}</Text>
               </HStack>
             )}
           </VStack>
