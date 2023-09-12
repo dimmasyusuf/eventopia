@@ -25,22 +25,24 @@ function RegisterForm() {
 
   const handleSubmit = () => {
     setLoadingState(true);
-    dispatch(registerUser(formik.values))
-      .then((res) => {
-        console.log(res);
-        navigate('/login');
-      })
-      .catch((err) => {
-        toast({
-          title: 'An error occurred',
-          description: err.message,
-          status: 'error',
-          duration: 3000,
-          isClosable: true,
-          position: 'top-right',
+    setTimeout(() => {
+      dispatch(registerUser(formik.values))
+        .then((res) => {
+          console.log(res);
+          navigate('/login');
+        })
+        .catch((err) => {
+          toast({
+            title: 'An error occurred',
+            description: err.message,
+            status: 'error',
+            duration: 3000,
+            isClosable: true,
+            position: 'top-right',
+          });
+          setLoadingState(false);
         });
-        setLoadingState(false);
-      });
+    }, 1000);
   };
 
   const RegisterSchema = Yup.object().shape({
