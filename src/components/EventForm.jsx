@@ -55,7 +55,10 @@ function EventForm() {
         author,
       })
     );
-    navigate('/');
+    setTimeout(() => {
+      setLoadingState(false);
+      navigate('/');
+    }, 1000);
   };
 
   const handleType = (event) => {
