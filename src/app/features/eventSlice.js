@@ -19,12 +19,22 @@ export const postEvent = createAsyncThunk('events/postEvent', async (data) => {
   return response.data;
 });
 
+export const searchEvent = createAsyncThunk(
+  'events/searchEvent',
+  async (query) => {
+    const response = await axios.get(`http://localhost:2000/events?q=${query}`);
+    return response.data;
+  }
+);
+
 const eventSlice = createSlice({
   name: 'events',
   initialState: {
     events: [],
     event: {},
     loading: false,
+    searchResults: [],
+    queryLength: 0,
   },
   extraReducers: (builder) => {
     builder
@@ -60,6 +70,11 @@ const eventSlice = createSlice({
       .addCase(postEvent.rejected, (state) => {
         state.loading = false;
         state.event = {};
+      })
+      .addCase(searchEvent.fulfilled, (state, action) => {
+        state.searchResults = action.payload;
+        state.loading = false;
+        state.queryLength = action.meta.arg.length;
       });
   },
 });

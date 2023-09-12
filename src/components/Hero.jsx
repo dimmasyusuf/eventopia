@@ -1,7 +1,11 @@
 import { Stack, Flex, Button } from '@chakra-ui/react';
+import { useSelector } from 'react-redux';
 
 function Hero() {
-  return (
+  const queryLength = useSelector((state) => state.events.queryLength);
+  console.log(queryLength);
+
+  return queryLength > 0 ? null : (
     <Flex
       w='100%'
       h={{ base: '50vh', sm: '65vh', lg: '65vh' }}

@@ -20,6 +20,7 @@ import { HamburgerIcon, SearchIcon } from '@chakra-ui/icons';
 import { Link as RouterLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { FaRightFromBracket } from 'react-icons/fa6';
+import SearchInput from './SearchInput';
 
 function NavbarMenuMobile() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -47,16 +48,7 @@ function NavbarMenuMobile() {
           <DrawerBody>
             {isAuthenticated === true ? (
               <Flex flexDirection='column' gap='6'>
-                <InputGroup w='100%'>
-                  <InputLeftElement>
-                    <SearchIcon />
-                  </InputLeftElement>
-                  <Input
-                    type='text'
-                    placeholder='Search your event'
-                    focusBorderColor='blue.500'
-                  />
-                </InputGroup>
+                <SearchInput />
                 <Link
                   as={RouterLink}
                   to='/create'
