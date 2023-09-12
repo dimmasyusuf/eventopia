@@ -15,9 +15,41 @@ import {
 } from '@chakra-ui/react';
 import { FaCartShopping } from 'react-icons/fa6';
 import NavbarCartItem from './NavbarCartItem';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  getCarts,
+  checkoutCarts,
+  removeCartItem,
+} from '../app/features/cartSlice';
+import { useEffect, useState } from 'react';
 
 function NavbarCart() {
+  const [loadingState, setLoadingState] = useState(false);
+  const carts = useSelector((state) => state.cart.carts);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCarts());
+  }, [dispatch]);
+
+  const totalPrice = carts.reduce((total, cartItem) => {
+    return total + cartItem.price * cartItem.quantity;
+  }, 0);
+
+  const deleteAllCarts = () => {
+    const cartsId = carts.map((cart) => cart.id);
+    cartsId.forEach((id) => dispatch(removeCartItem(id)));
+  };
+
+  const handleCheckout = () => {
+    setLoadingState(true);
+    dispatch(checkoutCarts({ ...carts, totalPrice }));
+    deleteAllCarts();
+    setTimeout(() => {
+      setLoadingState(false);
+    }, 1000);
+  };
 
   return (
     <>
@@ -36,15 +68,20 @@ function NavbarCart() {
           <DrawerHeader>My Cart</DrawerHeader>
           <DrawerBody>
             <NavbarCartItem />
-            <NavbarCartItem />
           </DrawerBody>
           <DrawerFooter>
             <VStack width='100%'>
               <HStack justifyContent='space-between' w='100%'>
                 <Text as='b'>Total:</Text>
-                <Text as='b'>$0</Text>
+                <Text as='b'>${totalPrice.toFixed(2)}</Text>
               </HStack>
-              <Button colorScheme='orange' w='100%'>
+              <Button
+                colorScheme='orange'
+                w='100%'
+                onClick={handleCheckout}
+                isLoading={loadingState}
+                loadingText='Checking out'
+              >
                 Checkout
               </Button>
             </VStack>

@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Center,
   Stack,
   Image,
@@ -9,16 +8,16 @@ import {
   Icon,
   HStack,
   VStack,
-  IconButton,
 } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
-import { CalendarIcon, AddIcon, MinusIcon } from '@chakra-ui/icons';
-import { FaLocationDot, FaDollarSign } from 'react-icons/fa6';
+import { CalendarIcon } from '@chakra-ui/icons';
+import { FaLocationDot } from 'react-icons/fa6';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEventById } from '../app/features/eventSlice';
 import { useParams } from 'react-router-dom';
 import { format, isValid, parseISO } from 'date-fns';
+import CartBox from '../components/CartBox';
 
 function EventDetail() {
   const { id } = useParams();
@@ -117,47 +116,7 @@ function EventDetail() {
             </VStack>
           </Stack>
           <Stack mb='6' w={{ base: '100%', lg: '30%' }}>
-            <Box borderWidth='1px' borderRadius='lg' w='100%' p='6'>
-              <HStack
-                mb='6'
-                borderWidth='2px'
-                p='6'
-                borderColor='blue'
-                borderRadius='lg'
-                alignItems='flex-start'
-                justifyContent='space-between'
-              >
-                <VStack alignItems='left'>
-                  <Text as='b' noOfLines='2'>
-                    {event.name}
-                  </Text>
-                  {event.type === 'Free' ? (
-                    <Text>Free</Text>
-                  ) : (
-                    <HStack color='gray' spacing='1' mb='2'>
-                      <Icon as={FaDollarSign} />
-                      <Text>{event.price}</Text>
-                    </HStack>
-                  )}
-                </VStack>
-                <HStack spacing={{ base: '4', lg: '2' }}>
-                  <IconButton
-                    size='sm'
-                    aria-label='Add tickets'
-                    icon={<AddIcon />}
-                  />
-                  <Text as='b'>1</Text>
-                  <IconButton
-                    size='sm'
-                    aria-label='Remove tickets'
-                    icon={<MinusIcon />}
-                  />
-                </HStack>
-              </HStack>
-              <Button colorScheme='orange' width='100%'>
-                Reserve a spot
-              </Button>
-            </Box>
+            <CartBox />
           </Stack>
         </HStack>
       </Stack>
