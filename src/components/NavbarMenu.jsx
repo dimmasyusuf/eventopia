@@ -1,20 +1,18 @@
 import {
   Flex,
   Icon,
-  Input,
-  InputGroup,
-  InputLeftElement,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
   Button,
 } from '@chakra-ui/react';
-import { ChevronDownIcon, SearchIcon } from '@chakra-ui/icons';
+import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Link as RouterLink } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
 import NavbarCart from './NavbarCart';
+import SearchInput from './SearchInput';
 
 function NavbarMenu() {
   const isAuthenticated = JSON.parse(localStorage.getItem('onAuth'));
@@ -33,16 +31,7 @@ function NavbarMenu() {
       alignItems='center'
       display={{ base: 'none', sm: 'none', md: 'flex' }}
     >
-      <InputGroup w='60%' mr='6'>
-        <InputLeftElement>
-          <SearchIcon />
-        </InputLeftElement>
-        <Input
-          type='text'
-          placeholder='Search event'
-          focusBorderColor='blue.500'
-        />
-      </InputGroup>
+      <SearchInput />
       {isAuthenticated === true ? (
         <>
           <Flex gap='2' alignItems='center'>
