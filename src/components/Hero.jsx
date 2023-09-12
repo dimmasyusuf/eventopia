@@ -1,8 +1,16 @@
 import { Stack, Flex, Button } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function Hero() {
+  const navigate = useNavigate();
   const queryLength = useSelector((state) => state.events.queryLength);
+  const events = useSelector((state) => state.events.events);
+
+  const handleRandomEvent = () => {
+    const randomEvent = Math.floor(Math.random() * events.length);
+    navigate(`/event/${randomEvent}`);
+  };
 
   return queryLength > 0 ? null : (
     <Flex
@@ -28,6 +36,7 @@ function Hero() {
           borderRadius='sm'
           color='white'
           _hover={{ background: 'orange.600' }}
+          onClick={handleRandomEvent}
         >
           Find your next event
         </Button>

@@ -69,8 +69,8 @@ function NavbarMenuMobile() {
                 </InputLeftElement>
                 <Input
                   type='text'
-                  placeholder='Search event'
-                  focusBorderColor='yellow.300'
+                  placeholder='Search your event'
+                  focusBorderColor='blue.500'
                 />
               </InputGroup>
             )}

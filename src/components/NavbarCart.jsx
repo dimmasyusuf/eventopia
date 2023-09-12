@@ -12,6 +12,7 @@ import {
   Text,
   VStack,
   HStack,
+  useToast,
 } from '@chakra-ui/react';
 import { FaCartShopping } from 'react-icons/fa6';
 import NavbarCartItem from './NavbarCartItem';
@@ -28,6 +29,8 @@ function NavbarCart() {
   const carts = useSelector((state) => state.cart.carts);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
+  const toast = useToast();
+  const isAuthenticated = JSON.parse(localStorage.getItem('onAuth'));
 
   useEffect(() => {
     dispatch(getCarts());
@@ -43,12 +46,23 @@ function NavbarCart() {
   };
 
   const handleCheckout = () => {
-    setLoadingState(true);
-    dispatch(checkoutCarts({ ...carts, totalPrice }));
-    deleteAllCarts();
-    setTimeout(() => {
-      setLoadingState(false);
-    }, 1000);
+    if (isAuthenticated === null) {
+      toast({
+        title: 'Login',
+        description: 'Please login to check out',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+        position: 'top-right',
+      });
+    } else if (isAuthenticated === true) {
+      setLoadingState(true);
+      dispatch(checkoutCarts({ ...carts, totalPrice }));
+      deleteAllCarts();
+      setTimeout(() => {
+        setLoadingState(false);
+      }, 1000);
+    }
   };
 
   return (
@@ -81,6 +95,7 @@ function NavbarCart() {
                 onClick={handleCheckout}
                 isLoading={loadingState}
                 loadingText='Checking out'
+                isDisabled={carts.length === 0}
               >
                 Checkout
               </Button>

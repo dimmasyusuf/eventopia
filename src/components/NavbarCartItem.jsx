@@ -54,7 +54,7 @@ function NavbarCartItem() {
           objectFit='fill'
           borderRadius='lg'
         />
-        <VStack alignItems='left' ml='1'>
+        <VStack alignItems='left' ml='1' w='66%'>
           <Heading size='sm' noOfLines='2'>
             {cart.name}
           </Heading>

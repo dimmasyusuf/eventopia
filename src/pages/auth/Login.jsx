@@ -1,5 +1,6 @@
 import { Stack, Heading } from '@chakra-ui/react';
 import LoginForm from '../../components/LoginForm';
+import { Link as RouterLink } from 'react-router-dom';
 
 function Login() {
   return (
@@ -10,7 +11,14 @@ function Login() {
       alignItems='center'
       bg='gray.50'
     >
-      <Heading as='h1' fontSize='2xl' mb='5' color='gray.700' textAlign='left'>
+      <Heading
+        as={RouterLink}
+        fontWeight='bold'
+        fontSize='2xl'
+        cursor='pointer'
+        to='/'
+        mb='6'
+      >
         Eventopia.
       </Heading>
       <LoginForm />

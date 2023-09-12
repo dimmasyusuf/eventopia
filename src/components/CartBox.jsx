@@ -6,6 +6,7 @@ import {
   IconButton,
   Button,
   Icon,
+  useToast,
 } from '@chakra-ui/react';
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import { FaDollarSign } from 'react-icons/fa6';
@@ -18,14 +19,27 @@ function CartBox() {
   const [quantity, setQuantity] = useState(1);
   const [loadingState, setLoadingState] = useState(false);
   const dispatch = useDispatch();
+  const toast = useToast();
+  const isAuthenticated = JSON.parse(localStorage.getItem('onAuth'));
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoadingState(true);
-    dispatch(postCart({ ...event, quantity }));
-    setTimeout(() => {
-      setLoadingState(false);
-    }, 1000);
+    if (isAuthenticated === null) {
+      toast({
+        title: 'Login',
+        description: 'Please login to reserve a spot',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+        position: 'top-right',
+      });
+    } else if (isAuthenticated === true) {
+      setLoadingState(true);
+      dispatch(postCart({ ...event, quantity }));
+      setTimeout(() => {
+        setLoadingState(false);
+      }, 1000);
+    }
   };
 
   return (

@@ -10,6 +10,7 @@ import {
   Select,
   Textarea,
   Button,
+  useToast,
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
@@ -29,6 +30,8 @@ function EventForm() {
   const [loadingState, setLoadingState] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const toast = useToast();
+  const isAuthenticated = JSON.parse(localStorage.getItem('onAuth'));
 
   useEffect(() => {
     handleAuthor();
@@ -39,26 +42,38 @@ function EventForm() {
     setAuthor(user.name);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     setLoadingState(true);
-    dispatch(
-      postEvent({
-        name,
-        type,
-        description,
-        price,
-        date,
-        time,
-        location,
-        image,
-        author,
-      })
-    );
-    setTimeout(() => {
+    if (isAuthenticated === null) {
+      toast({
+        title: 'Login',
+        description: 'Please login to create an event',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+        position: 'top-right',
+      });
       setLoadingState(false);
-      navigate('/');
-    }, 1000);
+    } else if (isAuthenticated === true) {
+      dispatch(
+        postEvent({
+          name,
+          type,
+          description,
+          price,
+          date,
+          time,
+          location,
+          image,
+          author,
+        })
+      );
+      setTimeout(() => {
+        setLoadingState(false);
+        navigate('/');
+      }, 1000);
+    }
   };
 
   const handleType = (event) => {

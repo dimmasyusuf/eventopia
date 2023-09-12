@@ -34,12 +34,12 @@ function LoginForm() {
       if (user.email === formik.values.email) {
         userFound = true;
         if (user.password === formik.values.password) {
-          setTimeout(() => {
-            setLoadingState(false);
-          }, 1000);
           localStorage.setItem('onAuth', true);
           localStorage.setItem('user', JSON.stringify(user));
-          navigate('/');
+          setTimeout(() => {
+            setLoadingState(false);
+            navigate('/');
+          }, 1000);
         } else {
           setLoadingState(false);
           formik.setErrors({ password: 'Password is incorrect' });

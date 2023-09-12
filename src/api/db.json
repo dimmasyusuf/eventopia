@@ -5,12 +5,6 @@
       "email": "admin@mail.com",
       "password": "123123",
       "id": 1
-    },
-    {
-      "name": "Dimas",
-      "email": "dimas@gmail.com",
-      "password": "dimas123",
-      "id": 2
     }
   ],
   "events": [
@@ -301,18 +295,6 @@
       "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F559454749%2F811123776653%2F1%2Foriginal.20230721-071529?w=940&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C2160%2C1080&s=344d930bdc38fe0b17a228f16b6f3f5c",
       "author": "BCI Central",
       "price": 0
-    },
-    {
-      "name": "coba",
-      "type": "Free",
-      "description": "1212",
-      "price": 0,
-      "date": "1999-12-12",
-      "time": "12:12",
-      "location": "1212",
-      "image": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
-      "author": "admin",
-      "id": 25
     }
   ],
   "carts": [],
